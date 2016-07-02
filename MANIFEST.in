@@ -1,0 +1,9 @@
+recursive-include ntv.api *
+recursive-include docs *
+include *.txt
+include *.rst
+include LICENSE
+global-exclude *.mo
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude __pycache__/*
