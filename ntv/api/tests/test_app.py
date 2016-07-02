@@ -12,4 +12,6 @@ def test_root():
     root = client.get('/')
 
     assert root.status_code == 200
-    assert len(root.json['greetings']) == 2
+    assert len(root.json) == 1
+    resource = root.json[0]
+    assert '@id' in resource
