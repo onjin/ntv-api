@@ -29,7 +29,7 @@ class Channel(object):
 
 
 class ChannelCollection(object):
-    """Channels with today schedule. Use `?name=query` to search by name"""
+    """Channels with today schedule"""
 
     def __init__(self):
         self.channels = {}
