@@ -48,7 +48,7 @@ def dump_channel(self, request):
             'Channel': 'schema:TelevisionChannel'
         },
         '@type': 'Channel',
-        '@id': self.id,
+        '@id': request.link(self),
         'potentialAction': [
             {
                 '@type': 'SearchAction',
