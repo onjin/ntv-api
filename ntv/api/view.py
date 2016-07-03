@@ -17,15 +17,30 @@ def channel_default(self, request):
 
 @App.dump_json(model=model.Channel)
 def dump_channel(self, request):
+    query = {}
+    if 'movie' in request.params:
+        query['title'] = request.params['movie'].strip()
     return {
         '@type': 'Channel',
         '@id': self.id,
+        'potentialAction': [
+            {
+                '@type': 'SearchAction',
+                'target': '{}/?date={date}',
+                'query-input': 'required name=date',
+            },
+            {
+                '@type': 'SearchAction',
+                'target': '{}/?movie={title}',
+                'query-input': 'required name=title',
+            },
+        ],
         'name': self.name,
         'movies': [{
             'title': m.get('title'),
             'start_time': str(m.get('start_time')),
             'end_time': str(m.get('end_time')),
-        } for m in self.movies],
+        } for m in self.find_movies(**query)],
     }
 
 
@@ -38,6 +53,13 @@ def dump_channels(self, request):
     return {
         '@id': request.link(self),
         '@type': 'ChannelCollection',
+        'potentialAction': [
+            {
+                '@type': 'SearchAction',
+                'target': '{}/?name={name}',
+                'query-input': 'required name=name',
+            },
+        ],
         'channels': [{
                 '@id': request.link(channel),
                 '@type': 'Channel',

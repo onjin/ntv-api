@@ -20,6 +20,11 @@ class Channel(object):
         self.movies = movies
         self.date = date
 
+    def find_movies(self, title=None):
+        if not title:
+            return self.movies
+        return [m for m in self.movies if title in m['title']]
+
 
 class ChannelCollection(object):
     """Channels with today schedule. Use `?name=query` to search by name"""
