@@ -13,5 +13,5 @@ def get_channel_collection():
 
 
 @App.path(model=model.Channel, path='/channels/{id}')
-def get_channel(id, date):
-    return model.channel_collection.get(id, date)
+def get_channel(id, date, movie):
+    return model.channel_collection.get(id, date, movie)

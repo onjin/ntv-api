@@ -14,11 +14,13 @@ class Root(object):
 
 
 class Channel(object):
-    def __init__(self, id, name, movies, date=None):
+    def __init__(self, id, name, movies, date=None, movie=None):
         self.id = id
         self.name = name
         self.movies = movies
+        # filters
         self.date = date
+        self.movie = movie
 
     def find_movies(self, title=None):
         if not title:
@@ -32,7 +34,7 @@ class ChannelCollection(object):
     def __init__(self):
         self.channels = {}
 
-    def get(self, id, date=None):
+    def get(self, id, date=None, movie=None):
         if not date:
             date = 'today'
         cal = parsedatetime.Calendar()
@@ -40,7 +42,10 @@ class ChannelCollection(object):
         channel_id = int(id)
         date, parse_status = cal.parseDT(date)
 
-        result = search(date, channel_name=None, channel_id=channel_id)
+        result = search(
+            date, channel_name=None, channel_id=channel_id,
+            movie_title=movie
+        )
         if not result:
             return None
         channel = result[channel_id]
@@ -59,8 +64,10 @@ class ChannelCollection(object):
 
 
 class Movie(object):
-    def __init(self, title):
+    def __init(self, id, title, start_time, end_time):
         self.id = None
         self.title = title
+        self.start_time = start_time
+        self.end_time = end_time
 
 channel_collection = ChannelCollection()

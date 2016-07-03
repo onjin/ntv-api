@@ -22,7 +22,7 @@ setup(
     platforms='any',
     install_requires=[
         'morepath',
-        'ntv',
+        'ntv>=0.4.4',
         'parsedatetime',
         'werkzeug',
     ],
